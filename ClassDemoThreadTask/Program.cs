@@ -9,9 +9,9 @@ ThreadWorker worker = new ThreadWorker();
 
 //worker.ExampleThread();
 
-worker.StartTaskTest();
+//worker.StartTaskTest();
 
 
 ThreadSafeWorker safeWorker = new ThreadSafeWorker();
 
-//safeWorker.Start();
+safeWorker.Start();

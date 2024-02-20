@@ -10,7 +10,7 @@ namespace ClassDemoThreadTask
     public class ThreadSafeWorker
     {
         // Constant 
-        private const bool IsParallel = false;
+        private const bool IsParallel = true;
 
         // Shared resource
         private List<int> _primes;
@@ -71,6 +71,13 @@ namespace ClassDemoThreadTask
             Console.WriteLine(text);
         }
 
+
+        private object LockObj = new object();
+        private Mutex mutex = new Mutex();
+        private Semaphore semaphor = new Semaphore(1, 1);
+
+
+
         private void FindPrimesInInterval(int lower, int upper)
         {
             for (int i = lower; i < upper; i++)
@@ -79,10 +86,22 @@ namespace ClassDemoThreadTask
                 {
 
                     // no threadsafe
-                    _primes.Add(i);
+                    //_primes.Add(i);
 
 
-                    
+                    // løsning 1
+                    lock (LockObj)
+                    {
+                        _primes.Add(i);
+                    }
+
+                    //mutex.WaitOne();
+                    //_primes.Add(i);
+                    //mutex.ReleaseMutex();
+
+                    //semaphor.WaitOne();
+                    //_primes.Add(i);
+                    //semaphor.Release();
 
                 }
             }
